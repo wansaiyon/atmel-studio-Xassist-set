@@ -1,0 +1,331 @@
+本文档描述基于stm32cubemx生成底层代码后，实际在SW4STM32,Keil两款IDE中一些高频的使用问题
+关于sw4stm32的使用参考文档：05_SW4STM32-tips-and-tricks.pdf
+
+
+/*********************************************（1）keil下的重定向printf串口输出代码*********************************************/
+stm32cubemx生成驱动后，uart中添加：
+
+#ifdef __GNUC__
+  /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+     set to 'Yes') calls __io_putchar() */
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+ 
+  return ch;
+}
+
+/*********************************************（2）SW4STM32下的重定向printf串口输出代码*********************************************/
+
+稍微复杂点，需要三步完成
+
+
+第一步：main.c中用户代码区增加代码（与keil中一样，只是放在main中而已）
+
+#ifdef __GNUC__
+
+  /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+
+     set to 'Yes') calls __io_putchar() */
+
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+
+#else
+
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+
+#endif /* __GNUC__ */
+
+/**
+
+  * @brief  Retargets the C library printf function to the USART.
+
+  * @param  None
+
+  * @retval None
+
+  */
+
+PUTCHAR_PROTOTYPE
+
+{
+
+  /* Place your implementation of fputc here */
+
+  /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
+
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+
+}
+
+第二步：将syscall.c放入SW4STM32文件夹下（与startup_stm32f407xx.s同根目录）；
+
+第三步：修改项目属性Properties -> C/C++ Build -> Settings -> MCU GCC Linker -> Miscellaneous -> Linker flags后面增加-u _printf_float标志，
+
+修改前：
+Linker flags:-specs=nosys.specs -specs=nano.specs -u _p
+
+修改后：
+Linker flags:-specs=nosys.specs -specs=nano.specs -u _p -u _printf_float
+
+
+
+
+
+/*********************************************（3）SW4STM32/keil下的重定向printf USB虚拟串口VCP输出代码*********************************************/
+#ifdef __GNUC__
+  /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+     set to 'Yes') calls __io_putchar() */
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
+//  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);		//重定向UART
+  while(!CDC_Transmit_FS((uint8_t *)&ch,1)==USBD_OK){};			//重定向USB虚拟串口VCP
+  return ch;
+}
+
+/*********************************************（4）SW4STM32/keil下不使用printf，直接使用HAL库格式化输出*********************************************/
+第一步：包括库文件(sprintf位于stdio.h,strlen位于string.h)
+
+#include <stdio.h>
+#include <string.h>
+
+第二步：发送缓冲区及待格式输入的变量
+
+char aTxBuffer[1024];
+int nbtime=1;
+
+第三步：格式输出到缓冲区
+
+sprintf(aTxBuffer,"STM32CubeMX rocks %d times \t", ++nbtime);
+
+第四步：HAL库输出
+
+HAL_UART_Transmit(&huart2,(uint8_t *) aTxBuffer, strlen(aTxBuffer), 5000);
+
+
+
+/*********************************************（5）keil下生成bin文件*********************************************/
+第一步：keil下路径
+
+USER -> after build/rebuild  -> RUN#1
+
+第二步：替换工程名称
+
+fromelf.exe --bin -o ./NAME/NAME.bin  ./NAME/NAME.axf
+
+举例如下：
+示例1：fromelf.exe --bin -o ./F4_USBDFU_app/F4_USBDFU_app.bin  ./F4_USBDFU_app/F4_USBDFU_app.axf
+示例2：fromelf.exe --bin -o ./STM32F767ZI_Nucleo/STM32F767ZI_Nucleo.bin  ./STM32F767ZI_Nucleo/STM32F767ZI_Nucleo.axf
+
+
+/*********************************************（6）SW4STM32下生成HEX文件*********************************************/
+第一步：SW4STM32路径
+
+Properties -> C/C++ Build -> Settings ->Build Steps ->Post build steps -> Command
+
+原始命令：默认生成.elf/.bin的二进制文件(注意原始时候各命令后无符号‘；’，直接通过符号 && 连接)
+
+arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin" && arm-none-eabi-size "${BuildArtifactFileName}"
+
+第二步：
+
+方案1： 由ELF生成BIN，由BIN生成HEX
+1)命令1：由elf文件生成binary(.bin)输出文件
+arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin"
+2)命令2：由bin文件生成INTEL HEX(.hex)输出文件
+arm-none-eabi-objcopy -I binary -O ihex "${BuildArtifactFileBaseName}.bin"  "${BuildArtifactFileBaseName}.hex"
+3)命令3：使用如下命令，编译完后打印代码大小信息
+arm-none-eabi-size "${BuildArtifactFileName}"
+4)总命令：通过符号 && 连接各条命令
+arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin" && arm-none-eabi-objcopy -I binary -O ihex "${BuildArtifactFileBaseName}.bin"  "${BuildArtifactFileBaseName}.hex" && arm-none-eabi-size "${BuildArtifactFileName}"
+
+方案2： 由ELF生成BIN，由ELF生成HEX
+1)命令1：生成binary(.bin)输出文件
+arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin"
+2)命令2：生成INTEL HEX(.hex)输出文件
+arm-none-eabi-objcopy -O ihex "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.hex"
+3)命令3：使用如下命令，编译完后打印代码大小信息
+arm-none-eabi-size "${BuildArtifactFileName}"
+4)总命令：通过符号 && 连接各条命令
+arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin" && arm-none-eabi-objcopy -O ihex "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.hex" && arm-none-eabi-size "${BuildArtifactFileName}" 
+
+
+
+
+/*********************************************（7）SW4STM32下配置系统嘀哒定时器，由1ms改为1us中断一次*********************************************/
+系统时钟配置函数SystemClock_Config() 里面
+
+修改前：
+    /**Configure the Systick interrupt time 
+    */
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);	//默认1ms中断一次
+
+    /**Configure the Systick 
+    */
+
+修改前：
+    /**Configure the Systick interrupt time 
+    */
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000000);	//默认1us中断一次
+
+    /**Configure the Systick 
+    */
+
+/*********************************************（8）keil拷贝去掉中文乱码*********************************************/
+
+edit -> configuration -> general edit setting -> encoding chinese GB2312(simplified）
+
+
+
+/*********************************************（9）使用操作系统时，添加包含文件 避免报错*********************************************/
+
+freertos.c文件中包含文件示例：
+
+#include "stm32f4xx_hal.h"	/*很关键 ，不然LED1_Pin，LED2_Pin等会报错*/
+#include "usart.h"
+
+
+/*********************************************（10）根据网上整理摘抄的的delay_us（比较混乱）*********************************************/
+
+
+/************************************	delay_us 说明*********************************************
+ * 
+ * 根据cortex system timer是否分频,滴答定时器SYSTICK的时钟源来源如下两者之一：
+ * 滴答定时器时钟要么使用内核时钟FCLK（CLKSOURCE置位），要么使用相当于内核时钟的8分频外部时钟（CLKSOURCE清零）
+ *
+ *
+ * 不分频：
+ * 1)	SysTick->CTRL的位段2置1，使用内核自由运行时钟FCLK作为滴答定时器的时钟源
+ * 2)	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000)（用于配置滴答中断时间）;对应16K，设置16K个Systick时钟周期产生一次中断
+ * 
+ * 8分频：
+ * 1)	SysTick->CTRL的位段2置0，使用外部时钟源HCLK/8作为滴答定时器的时钟源
+ * 2)	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/8000)（用于配置滴答中断时间）;对应2K，设置2K个Systick时钟周期产生一次中断
+ * 
+ * 
+ ***********************************************************************************************/
+
+/*step1:HAL_SYSTICK_CLKSourceConfig()选择时钟源，如内核时钟为写入参数为SYSTICK_CLKSOURCE_HCLK，外部时钟写入参数为SYSTICK_CLKSOURCE_HCLK_DIV8，CUBEMX默认使用不分频，即使用内核时钟*/
+/*step2:如上注释，自动配置为多少个滴答产生一次中断:内核时钟源时，16K个滴答产生一次中断，外部时钟源时，2K个滴答产生一次中断*/
+
+
+ 	// HAL_RCC_GetHCLKFreq()/1000    1ms中断一次
+	// HAL_RCC_GetHCLKFreq()/100000	 10us中断一次
+	// HAL_RCC_GetHCLKFreq()/1000000 1us中断一次
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);  // 配置并启动系统滴答定时器
+
+
+/**
+ * 延时相关的重要变量
+ */
+static uint8_t  fac_us=0;           //延时微秒的频率
+static uint16_t fac_ms=0;           //延时毫秒的频率
+
+/**
+ * 延时初始化
+ */
+void delay_init(void)
+{
+    HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK_DIV8); 		//选择时钟源-外部时钟-HCLK/8
+    fac_us=SystemCoreClock/8000000; 								// 72/8 延时1微秒9个时钟周期
+    fac_ms=(uint16_t)fac_us*1000;   								// 延时1毫秒9000个Systick时钟周期
+}
+
+/**
+ * nus : 延时多少微秒
+ */
+void delay_us(uint32_t nus)
+{
+	uint32_t temp;
+    //nus*fac_us值最大不能超过SysTick->LOAD(24位)-1
+    SysTick->LOAD=nus*fac_us;    									// 设置重载值:n(us)*延时1us需要多少个SysTick时钟周期
+    SysTick->VAL=0x00;                       						// VAL初始化为0
+    SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ; 						// 使能SysTick定时器
+    do
+    {
+    	temp=SysTick->CTRL;
+    }while((temp&0x01)&&!(temp&(1<<16)));    						// 等待计数时间到达(位16)
+    SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;						// 关闭使能
+    SysTick->VAL =0X00;                      						// 重置VAL
+}
+
+/**
+ * nms : 延时多少毫秒
+ * @注意事项 ：不要超过700ms（临界值未实际测出），否则不准
+ */
+void delay_ms(uint16_t nms)
+{
+	uint32_t temp;
+    SysTick->LOAD=(uint32_t)nms*fac_ms;
+    SysTick->VAL =0x00;
+    SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ;
+    do
+    {
+        temp=SysTick->CTRL;
+    }while((temp&0x01)&&!(temp&(1<<16)));
+    SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;
+    SysTick->VAL =0X00;
+}
+
+/**
+ * ns : 用500ms来延时多少秒
+ */
+void delay_s(uint16_t ns)
+{
+	for (int var = 0; var < ns; ++var)
+	{
+		delay_ms(500);
+		delay_ms(500);
+	}
+}
+
+/*********************************************（10）根据网上整理摘抄的的delay_us（比较混乱）结束了！！*********************************************/
+
+
+/*********************************************（11）SW4STM32快捷键*********************************************/
+使用展开或者折叠功能先要使能此功能：
+ctrl+/
+
+你可能是把折叠功能给取消了，要先启动折叠功能
+启用方法：Ctrl+ / (小键盘) 或者：右键点击行号左边的空白，弹出的选项中，选择“Folding”下的“Enable Folding”
+这样启动folding功能后，就可用上述的快捷键折叠或展开所有代码
+Ctrl+Shift + / (小键盘) 折叠当前类中的所有代码
+Ctrl+Shift + × (小键盘) 展开当前类中的所有代码
+
+
+
+
+展开：
+ctrl+shift+/
+
+折叠：
+ctrl+shift+*
+
+展开与关闭方法：
+
+ctrl+-
+ctrl++
