@@ -1,0 +1,1 @@
+# atmel-studio-Xassist-set
