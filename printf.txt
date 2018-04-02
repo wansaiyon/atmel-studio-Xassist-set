@@ -1,9 +1,9 @@
-±¾ÎÄµµÃèÊö»ùÓÚstm32cubemxÉú³Éµ×²ã´úÂëºó£¬Êµ¼ÊÔÚSW4STM32,KeilÁ½¿îIDEÖĞÒ»Ğ©¸ßÆµµÄÊ¹ÓÃÎÊÌâ
-¹ØÓÚsw4stm32µÄÊ¹ÓÃ²Î¿¼ÎÄµµ£º05_SW4STM32-tips-and-tricks.pdf
+æœ¬æ–‡æ¡£æè¿°åŸºäºstm32cubemxç”Ÿæˆåº•å±‚ä»£ç åï¼Œå®é™…åœ¨SW4STM32,Keilä¸¤æ¬¾IDEä¸­ä¸€äº›é«˜é¢‘çš„ä½¿ç”¨é—®é¢˜
+å…³äºsw4stm32çš„ä½¿ç”¨å‚è€ƒæ–‡æ¡£ï¼š05_SW4STM32-tips-and-tricks.pdf
 
 
-/*********************************************£¨1£©keilÏÂµÄÖØ¶¨Ïòprintf´®¿ÚÊä³ö´úÂë*********************************************/
-stm32cubemxÉú³ÉÇı¶¯ºó£¬uartÖĞÌí¼Ó£º
+/*********************************************ï¼ˆ1ï¼‰keilä¸‹çš„é‡å®šå‘printfä¸²å£è¾“å‡ºä»£ç *********************************************/
+stm32cubemxç”Ÿæˆé©±åŠ¨åï¼Œuartä¸­æ·»åŠ ï¼š
 
 #ifdef __GNUC__
   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -26,12 +26,12 @@ PUTCHAR_PROTOTYPE
   return ch;
 }
 
-/*********************************************£¨2£©SW4STM32ÏÂµÄÖØ¶¨Ïòprintf´®¿ÚÊä³ö´úÂë*********************************************/
+/*********************************************ï¼ˆ2ï¼‰SW4STM32ä¸‹çš„é‡å®šå‘printfä¸²å£è¾“å‡ºä»£ç *********************************************/
 
-ÉÔÎ¢¸´ÔÓµã£¬ĞèÒªÈı²½Íê³É
+ç¨å¾®å¤æ‚ç‚¹ï¼Œéœ€è¦ä¸‰æ­¥å®Œæˆ
 
 
-µÚÒ»²½£ºmain.cÖĞÓÃ»§´úÂëÇøÔö¼Ó´úÂë£¨ÓëkeilÖĞÒ»Ñù£¬Ö»ÊÇ·ÅÔÚmainÖĞ¶øÒÑ£©
+ç¬¬ä¸€æ­¥ï¼šmain.cä¸­ç”¨æˆ·ä»£ç åŒºå¢åŠ ä»£ç ï¼ˆä¸keilä¸­ä¸€æ ·ï¼Œåªæ˜¯æ”¾åœ¨mainä¸­è€Œå·²ï¼‰
 
 #ifdef __GNUC__
 
@@ -71,21 +71,21 @@ PUTCHAR_PROTOTYPE
 
 }
 
-µÚ¶ş²½£º½«syscall.c·ÅÈëSW4STM32ÎÄ¼ş¼ĞÏÂ£¨Óëstartup_stm32f407xx.sÍ¬¸ùÄ¿Â¼£©£»
+ç¬¬äºŒæ­¥ï¼šå°†syscall.cæ”¾å…¥SW4STM32æ–‡ä»¶å¤¹ä¸‹ï¼ˆä¸startup_stm32f407xx.såŒæ ¹ç›®å½•ï¼‰ï¼›
 
-µÚÈı²½£ºĞŞ¸ÄÏîÄ¿ÊôĞÔProperties -> C/C++ Build -> Settings -> MCU GCC Linker -> Miscellaneous -> Linker flagsºóÃæÔö¼Ó-u _printf_float±êÖ¾£¬
+ç¬¬ä¸‰æ­¥ï¼šä¿®æ”¹é¡¹ç›®å±æ€§Properties -> C/C++ Build -> Settings -> MCU GCC Linker -> Miscellaneous -> Linker flagsåé¢å¢åŠ -u _printf_floatæ ‡å¿—ï¼Œ
 
-ĞŞ¸ÄÇ°£º
+ä¿®æ”¹å‰ï¼š
 Linker flags:-specs=nosys.specs -specs=nano.specs -u _p
 
-ĞŞ¸Äºó£º
+ä¿®æ”¹åï¼š
 Linker flags:-specs=nosys.specs -specs=nano.specs -u _p -u _printf_float
 
 
 
 
 
-/*********************************************£¨3£©SW4STM32/keilÏÂµÄÖØ¶¨Ïòprintf USBĞéÄâ´®¿ÚVCPÊä³ö´úÂë*********************************************/
+/*********************************************ï¼ˆ3ï¼‰SW4STM32/keilä¸‹çš„é‡å®šå‘printf USBè™šæ‹Ÿä¸²å£VCPè¾“å‡ºä»£ç *********************************************/
 #ifdef __GNUC__
   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
      set to 'Yes') calls __io_putchar() */
@@ -102,180 +102,180 @@ PUTCHAR_PROTOTYPE
 {
   /* Place your implementation of fputc here */
   /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
-//  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);		//ÖØ¶¨ÏòUART
-  while(!CDC_Transmit_FS((uint8_t *)&ch,1)==USBD_OK){};			//ÖØ¶¨ÏòUSBĞéÄâ´®¿ÚVCP
+//  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);		//é‡å®šå‘UART
+  while(!CDC_Transmit_FS((uint8_t *)&ch,1)==USBD_OK){};			//é‡å®šå‘USBè™šæ‹Ÿä¸²å£VCP
   return ch;
 }
 
-/*********************************************£¨4£©SW4STM32/keilÏÂ²»Ê¹ÓÃprintf£¬Ö±½ÓÊ¹ÓÃHAL¿â¸ñÊ½»¯Êä³ö*********************************************/
-µÚÒ»²½£º°üÀ¨¿âÎÄ¼ş(sprintfÎ»ÓÚstdio.h,strlenÎ»ÓÚstring.h)
+/*********************************************ï¼ˆ4ï¼‰SW4STM32/keilä¸‹ä¸ä½¿ç”¨printfï¼Œç›´æ¥ä½¿ç”¨HALåº“æ ¼å¼åŒ–è¾“å‡º*********************************************/
+ç¬¬ä¸€æ­¥ï¼šåŒ…æ‹¬åº“æ–‡ä»¶(sprintfä½äºstdio.h,strlenä½äºstring.h)
 
 #include <stdio.h>
 #include <string.h>
 
-µÚ¶ş²½£º·¢ËÍ»º³åÇø¼°´ı¸ñÊ½ÊäÈëµÄ±äÁ¿
+ç¬¬äºŒæ­¥ï¼šå‘é€ç¼“å†²åŒºåŠå¾…æ ¼å¼è¾“å…¥çš„å˜é‡
 
 char aTxBuffer[1024];
 int nbtime=1;
 
-µÚÈı²½£º¸ñÊ½Êä³öµ½»º³åÇø
+ç¬¬ä¸‰æ­¥ï¼šæ ¼å¼è¾“å‡ºåˆ°ç¼“å†²åŒº
 
 sprintf(aTxBuffer,"STM32CubeMX rocks %d times \t", ++nbtime);
 
-µÚËÄ²½£ºHAL¿âÊä³ö
+ç¬¬å››æ­¥ï¼šHALåº“è¾“å‡º
 
 HAL_UART_Transmit(&huart2,(uint8_t *) aTxBuffer, strlen(aTxBuffer), 5000);
 
 
 
-/*********************************************£¨5£©keilÏÂÉú³ÉbinÎÄ¼ş*********************************************/
-µÚÒ»²½£ºkeilÏÂÂ·¾¶
+/*********************************************ï¼ˆ5ï¼‰keilä¸‹ç”Ÿæˆbinæ–‡ä»¶*********************************************/
+ç¬¬ä¸€æ­¥ï¼škeilä¸‹è·¯å¾„
 
 USER -> after build/rebuild  -> RUN#1
 
-µÚ¶ş²½£ºÌæ»»¹¤³ÌÃû³Æ
+ç¬¬äºŒæ­¥ï¼šæ›¿æ¢å·¥ç¨‹åç§°
 
 fromelf.exe --bin -o ./NAME/NAME.bin  ./NAME/NAME.axf
 
-¾ÙÀıÈçÏÂ£º
-Ê¾Àı1£ºfromelf.exe --bin -o ./F4_USBDFU_app/F4_USBDFU_app.bin  ./F4_USBDFU_app/F4_USBDFU_app.axf
-Ê¾Àı2£ºfromelf.exe --bin -o ./STM32F767ZI_Nucleo/STM32F767ZI_Nucleo.bin  ./STM32F767ZI_Nucleo/STM32F767ZI_Nucleo.axf
+ä¸¾ä¾‹å¦‚ä¸‹ï¼š
+ç¤ºä¾‹1ï¼šfromelf.exe --bin -o ./F4_USBDFU_app/F4_USBDFU_app.bin  ./F4_USBDFU_app/F4_USBDFU_app.axf
+ç¤ºä¾‹2ï¼šfromelf.exe --bin -o ./STM32F767ZI_Nucleo/STM32F767ZI_Nucleo.bin  ./STM32F767ZI_Nucleo/STM32F767ZI_Nucleo.axf
 
 
-/*********************************************£¨6£©SW4STM32ÏÂÉú³ÉHEXÎÄ¼ş*********************************************/
-µÚÒ»²½£ºSW4STM32Â·¾¶
+/*********************************************ï¼ˆ6ï¼‰SW4STM32ä¸‹ç”ŸæˆHEXæ–‡ä»¶*********************************************/
+ç¬¬ä¸€æ­¥ï¼šSW4STM32è·¯å¾„
 
 Properties -> C/C++ Build -> Settings ->Build Steps ->Post build steps -> Command
 
-Ô­Ê¼ÃüÁî£ºÄ¬ÈÏÉú³É.elf/.binµÄ¶ş½øÖÆÎÄ¼ş(×¢ÒâÔ­Ê¼Ê±ºò¸÷ÃüÁîºóÎŞ·ûºÅ¡®£»¡¯£¬Ö±½ÓÍ¨¹ı·ûºÅ && Á¬½Ó)
+åŸå§‹å‘½ä»¤ï¼šé»˜è®¤ç”Ÿæˆ.elf/.binçš„äºŒè¿›åˆ¶æ–‡ä»¶(æ³¨æ„åŸå§‹æ—¶å€™å„å‘½ä»¤åæ— ç¬¦å·â€˜ï¼›â€™ï¼Œç›´æ¥é€šè¿‡ç¬¦å· && è¿æ¥)
 
 arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin" && arm-none-eabi-size "${BuildArtifactFileName}"
 
-µÚ¶ş²½£º
+ç¬¬äºŒæ­¥ï¼š
 
-·½°¸1£º ÓÉELFÉú³ÉBIN£¬ÓÉBINÉú³ÉHEX
-1)ÃüÁî1£ºÓÉelfÎÄ¼şÉú³Ébinary(.bin)Êä³öÎÄ¼ş
+æ–¹æ¡ˆ1ï¼š ç”±ELFç”ŸæˆBINï¼Œç”±BINç”ŸæˆHEX
+1)å‘½ä»¤1ï¼šç”±elfæ–‡ä»¶ç”Ÿæˆbinary(.bin)è¾“å‡ºæ–‡ä»¶
 arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin"
-2)ÃüÁî2£ºÓÉbinÎÄ¼şÉú³ÉINTEL HEX(.hex)Êä³öÎÄ¼ş
+2)å‘½ä»¤2ï¼šç”±binæ–‡ä»¶ç”ŸæˆINTEL HEX(.hex)è¾“å‡ºæ–‡ä»¶
 arm-none-eabi-objcopy -I binary -O ihex "${BuildArtifactFileBaseName}.bin"  "${BuildArtifactFileBaseName}.hex"
-3)ÃüÁî3£ºÊ¹ÓÃÈçÏÂÃüÁî£¬±àÒëÍêºó´òÓ¡´úÂë´óĞ¡ĞÅÏ¢
+3)å‘½ä»¤3ï¼šä½¿ç”¨å¦‚ä¸‹å‘½ä»¤ï¼Œç¼–è¯‘å®Œåæ‰“å°ä»£ç å¤§å°ä¿¡æ¯
 arm-none-eabi-size "${BuildArtifactFileName}"
-4)×ÜÃüÁî£ºÍ¨¹ı·ûºÅ && Á¬½Ó¸÷ÌõÃüÁî
+4)æ€»å‘½ä»¤ï¼šé€šè¿‡ç¬¦å· && è¿æ¥å„æ¡å‘½ä»¤
 arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin" && arm-none-eabi-objcopy -I binary -O ihex "${BuildArtifactFileBaseName}.bin"  "${BuildArtifactFileBaseName}.hex" && arm-none-eabi-size "${BuildArtifactFileName}"
 
-·½°¸2£º ÓÉELFÉú³ÉBIN£¬ÓÉELFÉú³ÉHEX
-1)ÃüÁî1£ºÉú³Ébinary(.bin)Êä³öÎÄ¼ş
+æ–¹æ¡ˆ2ï¼š ç”±ELFç”ŸæˆBINï¼Œç”±ELFç”ŸæˆHEX
+1)å‘½ä»¤1ï¼šç”Ÿæˆbinary(.bin)è¾“å‡ºæ–‡ä»¶
 arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin"
-2)ÃüÁî2£ºÉú³ÉINTEL HEX(.hex)Êä³öÎÄ¼ş
+2)å‘½ä»¤2ï¼šç”ŸæˆINTEL HEX(.hex)è¾“å‡ºæ–‡ä»¶
 arm-none-eabi-objcopy -O ihex "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.hex"
-3)ÃüÁî3£ºÊ¹ÓÃÈçÏÂÃüÁî£¬±àÒëÍêºó´òÓ¡´úÂë´óĞ¡ĞÅÏ¢
+3)å‘½ä»¤3ï¼šä½¿ç”¨å¦‚ä¸‹å‘½ä»¤ï¼Œç¼–è¯‘å®Œåæ‰“å°ä»£ç å¤§å°ä¿¡æ¯
 arm-none-eabi-size "${BuildArtifactFileName}"
-4)×ÜÃüÁî£ºÍ¨¹ı·ûºÅ && Á¬½Ó¸÷ÌõÃüÁî
+4)æ€»å‘½ä»¤ï¼šé€šè¿‡ç¬¦å· && è¿æ¥å„æ¡å‘½ä»¤
 arm-none-eabi-objcopy -O binary "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.bin" && arm-none-eabi-objcopy -O ihex "${BuildArtifactFileBaseName}.elf" "${BuildArtifactFileBaseName}.hex" && arm-none-eabi-size "${BuildArtifactFileName}" 
 
 
 
 
-/*********************************************£¨7£©SW4STM32ÏÂÅäÖÃÏµÍ³àÖßÕ¶¨Ê±Æ÷£¬ÓÉ1ms¸ÄÎª1usÖĞ¶ÏÒ»´Î*********************************************/
-ÏµÍ³Ê±ÖÓÅäÖÃº¯ÊıSystemClock_Config() ÀïÃæ
+/*********************************************ï¼ˆ7ï¼‰SW4STM32ä¸‹é…ç½®ç³»ç»Ÿå˜€å“’å®šæ—¶å™¨ï¼Œç”±1msæ”¹ä¸º1usä¸­æ–­ä¸€æ¬¡*********************************************/
+ç³»ç»Ÿæ—¶é’Ÿé…ç½®å‡½æ•°SystemClock_Config() é‡Œé¢
 
-ĞŞ¸ÄÇ°£º
+ä¿®æ”¹å‰ï¼š
     /**Configure the Systick interrupt time 
     */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);	//Ä¬ÈÏ1msÖĞ¶ÏÒ»´Î
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);	//é»˜è®¤1msä¸­æ–­ä¸€æ¬¡
 
     /**Configure the Systick 
     */
 
-ĞŞ¸ÄÇ°£º
+ä¿®æ”¹å‰ï¼š
     /**Configure the Systick interrupt time 
     */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000000);	//Ä¬ÈÏ1usÖĞ¶ÏÒ»´Î
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000000);	//é»˜è®¤1usä¸­æ–­ä¸€æ¬¡
 
     /**Configure the Systick 
     */
 
-/*********************************************£¨8£©keil¿½±´È¥µôÖĞÎÄÂÒÂë*********************************************/
+/*********************************************ï¼ˆ8ï¼‰keilæ‹·è´å»æ‰ä¸­æ–‡ä¹±ç *********************************************/
 
-edit -> configuration -> general edit setting -> encoding chinese GB2312(simplified£©
+edit -> configuration -> general edit setting -> encoding chinese GB2312(simplifiedï¼‰
 
 
 
-/*********************************************£¨9£©Ê¹ÓÃ²Ù×÷ÏµÍ³Ê±£¬Ìí¼Ó°üº¬ÎÄ¼ş ±ÜÃâ±¨´í*********************************************/
+/*********************************************ï¼ˆ9ï¼‰ä½¿ç”¨æ“ä½œç³»ç»Ÿæ—¶ï¼Œæ·»åŠ åŒ…å«æ–‡ä»¶ é¿å…æŠ¥é”™*********************************************/
 
-freertos.cÎÄ¼şÖĞ°üº¬ÎÄ¼şÊ¾Àı£º
+freertos.cæ–‡ä»¶ä¸­åŒ…å«æ–‡ä»¶ç¤ºä¾‹ï¼š
 
-#include "stm32f4xx_hal.h"	/*ºÜ¹Ø¼ü £¬²»È»LED1_Pin£¬LED2_PinµÈ»á±¨´í*/
+#include "stm32f4xx_hal.h"	/*å¾ˆå…³é”® ï¼Œä¸ç„¶LED1_Pinï¼ŒLED2_Pinç­‰ä¼šæŠ¥é”™*/
 #include "usart.h"
 
 
-/*********************************************£¨10£©¸ù¾İÍøÉÏÕûÀíÕª³­µÄµÄdelay_us£¨±È½Ï»ìÂÒ£©*********************************************/
+/*********************************************ï¼ˆ10ï¼‰æ ¹æ®ç½‘ä¸Šæ•´ç†æ‘˜æŠ„çš„çš„delay_usï¼ˆæ¯”è¾ƒæ··ä¹±ï¼‰*********************************************/
 
 
-/************************************	delay_us ËµÃ÷*********************************************
+/************************************	delay_us è¯´æ˜*********************************************
  * 
- * ¸ù¾İcortex system timerÊÇ·ñ·ÖÆµ,µÎ´ğ¶¨Ê±Æ÷SYSTICKµÄÊ±ÖÓÔ´À´Ô´ÈçÏÂÁ½ÕßÖ®Ò»£º
- * µÎ´ğ¶¨Ê±Æ÷Ê±ÖÓÒªÃ´Ê¹ÓÃÄÚºËÊ±ÖÓFCLK£¨CLKSOURCEÖÃÎ»£©£¬ÒªÃ´Ê¹ÓÃÏàµ±ÓÚÄÚºËÊ±ÖÓµÄ8·ÖÆµÍâ²¿Ê±ÖÓ£¨CLKSOURCEÇåÁã£©
+ * æ ¹æ®cortex system timeræ˜¯å¦åˆ†é¢‘,æ»´ç­”å®šæ—¶å™¨SYSTICKçš„æ—¶é’Ÿæºæ¥æºå¦‚ä¸‹ä¸¤è€…ä¹‹ä¸€ï¼š
+ * æ»´ç­”å®šæ—¶å™¨æ—¶é’Ÿè¦ä¹ˆä½¿ç”¨å†…æ ¸æ—¶é’ŸFCLKï¼ˆCLKSOURCEç½®ä½ï¼‰ï¼Œè¦ä¹ˆä½¿ç”¨ç›¸å½“äºå†…æ ¸æ—¶é’Ÿçš„8åˆ†é¢‘å¤–éƒ¨æ—¶é’Ÿï¼ˆCLKSOURCEæ¸…é›¶ï¼‰
  *
  *
- * ²»·ÖÆµ£º
- * 1)	SysTick->CTRLµÄÎ»¶Î2ÖÃ1£¬Ê¹ÓÃÄÚºË×ÔÓÉÔËĞĞÊ±ÖÓFCLK×÷ÎªµÎ´ğ¶¨Ê±Æ÷µÄÊ±ÖÓÔ´
- * 2)	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000)£¨ÓÃÓÚÅäÖÃµÎ´ğÖĞ¶ÏÊ±¼ä£©;¶ÔÓ¦16K£¬ÉèÖÃ16K¸öSystickÊ±ÖÓÖÜÆÚ²úÉúÒ»´ÎÖĞ¶Ï
+ * ä¸åˆ†é¢‘ï¼š
+ * 1)	SysTick->CTRLçš„ä½æ®µ2ç½®1ï¼Œä½¿ç”¨å†…æ ¸è‡ªç”±è¿è¡Œæ—¶é’ŸFCLKä½œä¸ºæ»´ç­”å®šæ—¶å™¨çš„æ—¶é’Ÿæº
+ * 2)	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000)ï¼ˆç”¨äºé…ç½®æ»´ç­”ä¸­æ–­æ—¶é—´ï¼‰;å¯¹åº”16Kï¼Œè®¾ç½®16Kä¸ªSystickæ—¶é’Ÿå‘¨æœŸäº§ç”Ÿä¸€æ¬¡ä¸­æ–­
  * 
- * 8·ÖÆµ£º
- * 1)	SysTick->CTRLµÄÎ»¶Î2ÖÃ0£¬Ê¹ÓÃÍâ²¿Ê±ÖÓÔ´HCLK/8×÷ÎªµÎ´ğ¶¨Ê±Æ÷µÄÊ±ÖÓÔ´
- * 2)	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/8000)£¨ÓÃÓÚÅäÖÃµÎ´ğÖĞ¶ÏÊ±¼ä£©;¶ÔÓ¦2K£¬ÉèÖÃ2K¸öSystickÊ±ÖÓÖÜÆÚ²úÉúÒ»´ÎÖĞ¶Ï
+ * 8åˆ†é¢‘ï¼š
+ * 1)	SysTick->CTRLçš„ä½æ®µ2ç½®0ï¼Œä½¿ç”¨å¤–éƒ¨æ—¶é’ŸæºHCLK/8ä½œä¸ºæ»´ç­”å®šæ—¶å™¨çš„æ—¶é’Ÿæº
+ * 2)	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/8000)ï¼ˆç”¨äºé…ç½®æ»´ç­”ä¸­æ–­æ—¶é—´ï¼‰;å¯¹åº”2Kï¼Œè®¾ç½®2Kä¸ªSystickæ—¶é’Ÿå‘¨æœŸäº§ç”Ÿä¸€æ¬¡ä¸­æ–­
  * 
  * 
  ***********************************************************************************************/
 
-/*step1:HAL_SYSTICK_CLKSourceConfig()Ñ¡ÔñÊ±ÖÓÔ´£¬ÈçÄÚºËÊ±ÖÓÎªĞ´Èë²ÎÊıÎªSYSTICK_CLKSOURCE_HCLK£¬Íâ²¿Ê±ÖÓĞ´Èë²ÎÊıÎªSYSTICK_CLKSOURCE_HCLK_DIV8£¬CUBEMXÄ¬ÈÏÊ¹ÓÃ²»·ÖÆµ£¬¼´Ê¹ÓÃÄÚºËÊ±ÖÓ*/
-/*step2:ÈçÉÏ×¢ÊÍ£¬×Ô¶¯ÅäÖÃÎª¶àÉÙ¸öµÎ´ğ²úÉúÒ»´ÎÖĞ¶Ï:ÄÚºËÊ±ÖÓÔ´Ê±£¬16K¸öµÎ´ğ²úÉúÒ»´ÎÖĞ¶Ï£¬Íâ²¿Ê±ÖÓÔ´Ê±£¬2K¸öµÎ´ğ²úÉúÒ»´ÎÖĞ¶Ï*/
+/*step1:HAL_SYSTICK_CLKSourceConfig()é€‰æ‹©æ—¶é’Ÿæºï¼Œå¦‚å†…æ ¸æ—¶é’Ÿä¸ºå†™å…¥å‚æ•°ä¸ºSYSTICK_CLKSOURCE_HCLKï¼Œå¤–éƒ¨æ—¶é’Ÿå†™å…¥å‚æ•°ä¸ºSYSTICK_CLKSOURCE_HCLK_DIV8ï¼ŒCUBEMXé»˜è®¤ä½¿ç”¨ä¸åˆ†é¢‘ï¼Œå³ä½¿ç”¨å†…æ ¸æ—¶é’Ÿ*/
+/*step2:å¦‚ä¸Šæ³¨é‡Šï¼Œè‡ªåŠ¨é…ç½®ä¸ºå¤šå°‘ä¸ªæ»´ç­”äº§ç”Ÿä¸€æ¬¡ä¸­æ–­:å†…æ ¸æ—¶é’Ÿæºæ—¶ï¼Œ16Kä¸ªæ»´ç­”äº§ç”Ÿä¸€æ¬¡ä¸­æ–­ï¼Œå¤–éƒ¨æ—¶é’Ÿæºæ—¶ï¼Œ2Kä¸ªæ»´ç­”äº§ç”Ÿä¸€æ¬¡ä¸­æ–­*/
 
 
- 	// HAL_RCC_GetHCLKFreq()/1000    1msÖĞ¶ÏÒ»´Î
-	// HAL_RCC_GetHCLKFreq()/100000	 10usÖĞ¶ÏÒ»´Î
-	// HAL_RCC_GetHCLKFreq()/1000000 1usÖĞ¶ÏÒ»´Î
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);  // ÅäÖÃ²¢Æô¶¯ÏµÍ³µÎ´ğ¶¨Ê±Æ÷
+ 	// HAL_RCC_GetHCLKFreq()/1000    1msä¸­æ–­ä¸€æ¬¡
+	// HAL_RCC_GetHCLKFreq()/100000	 10usä¸­æ–­ä¸€æ¬¡
+	// HAL_RCC_GetHCLKFreq()/1000000 1usä¸­æ–­ä¸€æ¬¡
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);  // é…ç½®å¹¶å¯åŠ¨ç³»ç»Ÿæ»´ç­”å®šæ—¶å™¨
 
 
 /**
- * ÑÓÊ±Ïà¹ØµÄÖØÒª±äÁ¿
+ * å»¶æ—¶ç›¸å…³çš„é‡è¦å˜é‡
  */
-static uint8_t  fac_us=0;           //ÑÓÊ±Î¢ÃëµÄÆµÂÊ
-static uint16_t fac_ms=0;           //ÑÓÊ±ºÁÃëµÄÆµÂÊ
+static uint8_t  fac_us=0;           //å»¶æ—¶å¾®ç§’çš„é¢‘ç‡
+static uint16_t fac_ms=0;           //å»¶æ—¶æ¯«ç§’çš„é¢‘ç‡
 
 /**
- * ÑÓÊ±³õÊ¼»¯
+ * å»¶æ—¶åˆå§‹åŒ–
  */
 void delay_init(void)
 {
-    HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK_DIV8); 		//Ñ¡ÔñÊ±ÖÓÔ´-Íâ²¿Ê±ÖÓ-HCLK/8
-    fac_us=SystemCoreClock/8000000; 								// 72/8 ÑÓÊ±1Î¢Ãë9¸öÊ±ÖÓÖÜÆÚ
-    fac_ms=(uint16_t)fac_us*1000;   								// ÑÓÊ±1ºÁÃë9000¸öSystickÊ±ÖÓÖÜÆÚ
+    HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK_DIV8); 		//é€‰æ‹©æ—¶é’Ÿæº-å¤–éƒ¨æ—¶é’Ÿ-HCLK/8
+    fac_us=SystemCoreClock/8000000; 								// 72/8 å»¶æ—¶1å¾®ç§’9ä¸ªæ—¶é’Ÿå‘¨æœŸ
+    fac_ms=(uint16_t)fac_us*1000;   								// å»¶æ—¶1æ¯«ç§’9000ä¸ªSystickæ—¶é’Ÿå‘¨æœŸ
 }
 
 /**
- * nus : ÑÓÊ±¶àÉÙÎ¢Ãë
+ * nus : å»¶æ—¶å¤šå°‘å¾®ç§’
  */
 void delay_us(uint32_t nus)
 {
 	uint32_t temp;
-    //nus*fac_usÖµ×î´ó²»ÄÜ³¬¹ıSysTick->LOAD(24Î»)-1
-    SysTick->LOAD=nus*fac_us;    									// ÉèÖÃÖØÔØÖµ:n(us)*ÑÓÊ±1usĞèÒª¶àÉÙ¸öSysTickÊ±ÖÓÖÜÆÚ
-    SysTick->VAL=0x00;                       						// VAL³õÊ¼»¯Îª0
-    SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ; 						// Ê¹ÄÜSysTick¶¨Ê±Æ÷
+    //nus*fac_uså€¼æœ€å¤§ä¸èƒ½è¶…è¿‡SysTick->LOAD(24ä½)-1
+    SysTick->LOAD=nus*fac_us;    									// è®¾ç½®é‡è½½å€¼:n(us)*å»¶æ—¶1uséœ€è¦å¤šå°‘ä¸ªSysTickæ—¶é’Ÿå‘¨æœŸ
+    SysTick->VAL=0x00;                       						// VALåˆå§‹åŒ–ä¸º0
+    SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ; 						// ä½¿èƒ½SysTickå®šæ—¶å™¨
     do
     {
     	temp=SysTick->CTRL;
-    }while((temp&0x01)&&!(temp&(1<<16)));    						// µÈ´ı¼ÆÊıÊ±¼äµ½´ï(Î»16)
-    SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;						// ¹Ø±ÕÊ¹ÄÜ
-    SysTick->VAL =0X00;                      						// ÖØÖÃVAL
+    }while((temp&0x01)&&!(temp&(1<<16)));    						// ç­‰å¾…è®¡æ•°æ—¶é—´åˆ°è¾¾(ä½16)
+    SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;						// å…³é—­ä½¿èƒ½
+    SysTick->VAL =0X00;                      						// é‡ç½®VAL
 }
 
 /**
- * nms : ÑÓÊ±¶àÉÙºÁÃë
- * @×¢ÒâÊÂÏî £º²»Òª³¬¹ı700ms£¨ÁÙ½çÖµÎ´Êµ¼Ê²â³ö£©£¬·ñÔò²»×¼
+ * nms : å»¶æ—¶å¤šå°‘æ¯«ç§’
+ * @æ³¨æ„äº‹é¡¹ ï¼šä¸è¦è¶…è¿‡700msï¼ˆä¸´ç•Œå€¼æœªå®é™…æµ‹å‡ºï¼‰ï¼Œå¦åˆ™ä¸å‡†
  */
 void delay_ms(uint16_t nms)
 {
@@ -292,7 +292,7 @@ void delay_ms(uint16_t nms)
 }
 
 /**
- * ns : ÓÃ500msÀ´ÑÓÊ±¶àÉÙÃë
+ * ns : ç”¨500msæ¥å»¶æ—¶å¤šå°‘ç§’
  */
 void delay_s(uint16_t ns)
 {
@@ -303,29 +303,33 @@ void delay_s(uint16_t ns)
 	}
 }
 
-/*********************************************£¨10£©¸ù¾İÍøÉÏÕûÀíÕª³­µÄµÄdelay_us£¨±È½Ï»ìÂÒ£©½áÊøÁË£¡£¡*********************************************/
+/*********************************************ï¼ˆ10ï¼‰æ ¹æ®ç½‘ä¸Šæ•´ç†æ‘˜æŠ„çš„çš„delay_usï¼ˆæ¯”è¾ƒæ··ä¹±ï¼‰ç»“æŸäº†ï¼ï¼*********************************************/
 
 
-/*********************************************£¨11£©SW4STM32¿ì½İ¼ü*********************************************/
-Ê¹ÓÃÕ¹¿ª»òÕßÕÛµş¹¦ÄÜÏÈÒªÊ¹ÄÜ´Ë¹¦ÄÜ£º
+/*********************************************ï¼ˆ11ï¼‰SW4STM32å¿«æ·é”®*********************************************/
+ä½¿ç”¨å±•å¼€æˆ–è€…æŠ˜å åŠŸèƒ½å…ˆè¦ä½¿èƒ½æ­¤åŠŸèƒ½ï¼š
 ctrl+/
 
-Äã¿ÉÄÜÊÇ°ÑÕÛµş¹¦ÄÜ¸øÈ¡ÏûÁË£¬ÒªÏÈÆô¶¯ÕÛµş¹¦ÄÜ
-ÆôÓÃ·½·¨£ºCtrl+ / (Ğ¡¼üÅÌ) »òÕß£ºÓÒ¼üµã»÷ĞĞºÅ×ó±ßµÄ¿Õ°×£¬µ¯³öµÄÑ¡ÏîÖĞ£¬Ñ¡Ôñ¡°Folding¡±ÏÂµÄ¡°Enable Folding¡±
-ÕâÑùÆô¶¯folding¹¦ÄÜºó£¬¾Í¿ÉÓÃÉÏÊöµÄ¿ì½İ¼üÕÛµş»òÕ¹¿ªËùÓĞ´úÂë
-Ctrl+Shift + / (Ğ¡¼üÅÌ) ÕÛµşµ±Ç°ÀàÖĞµÄËùÓĞ´úÂë
-Ctrl+Shift + ¡Á (Ğ¡¼üÅÌ) Õ¹¿ªµ±Ç°ÀàÖĞµÄËùÓĞ´úÂë
+ä½ å¯èƒ½æ˜¯æŠŠæŠ˜å åŠŸèƒ½ç»™å–æ¶ˆäº†ï¼Œè¦å…ˆå¯åŠ¨æŠ˜å åŠŸèƒ½
+å¯ç”¨æ–¹æ³•ï¼šCtrl+ / (å°é”®ç›˜) æˆ–è€…ï¼šå³é”®ç‚¹å‡»è¡Œå·å·¦è¾¹çš„ç©ºç™½ï¼Œå¼¹å‡ºçš„é€‰é¡¹ä¸­ï¼Œé€‰æ‹©â€œFoldingâ€ä¸‹çš„â€œEnable Foldingâ€
+è¿™æ ·å¯åŠ¨foldingåŠŸèƒ½åï¼Œå°±å¯ç”¨ä¸Šè¿°çš„å¿«æ·é”®æŠ˜å æˆ–å±•å¼€æ‰€æœ‰ä»£ç 
+Ctrl+Shift + / (å°é”®ç›˜) æŠ˜å å½“å‰ç±»ä¸­çš„æ‰€æœ‰ä»£ç 
+Ctrl+Shift + Ã— (å°é”®ç›˜) å±•å¼€å½“å‰ç±»ä¸­çš„æ‰€æœ‰ä»£ç 
 
 
 
 
-Õ¹¿ª£º
+å±•å¼€ï¼š
 ctrl+shift+/
 
-ÕÛµş£º
+æŠ˜å ï¼š
 ctrl+shift+*
 
-Õ¹¿ªÓë¹Ø±Õ·½·¨£º
+å±•å¼€ä¸å…³é—­æ–¹æ³•ï¼š
 
 ctrl+-
 ctrl++
+
+/*********************************************ï¼ˆ12ï¼‰SW4STM32 ç§»åŠ¨åº•å±‚é©±åŠ¨æ—¶å‡ºç°ä¹±ç *********************************************/
+æ–¹æ³•1ï¼šå°†åº•å±‚é©±åŠ¨.txtæ–‡ä»¶å­˜ä¸ºutf_8æ ¼å¼
+æ–¹æ³•2ï¼šåœ¨Windows -> Preferences -> General -> Workspace -> Text file encoding é€‰æ‹© Other ï¼ŒUTF-8æ ¼å¼
