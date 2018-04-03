@@ -2,8 +2,7 @@ atmel studio 路径：VAssistX -> inser VA snippet -> edit VA snippet -> 左上�
                 或者   VAssistX -> visual assist option -> suggestions -> edit VA snippets
 方法：输入快捷键后直接按enter
 		
-sw4stm32路径： 右上角quick access 输入template回车 -> create a new template
-方法：输入快捷键后直接按atl+/
+
 
 
 _____________________________________________________________________________________________________
@@ -447,3 +446,65 @@ ${declarations}
  *
  */
 替换后：
+
+
+ /*****************************************（5）函数注释************************************************************/
+ sw4stm32路径： 右上角quick access 输入template回车 -> create a new template
+方法：输入快捷键后直接按atl+/
+ 
+name: wyf (快捷键)
+description:	docuent method
+pattern:
+/******************************************************************************
+ * @函数名称：
+ * @函数功能：
+ * @输入参数：
+ * 			  		
+ * @输出参数：
+ * @算法思路：
+ * @使用资源：
+ * @注意事项：
+ ******************************************************************************/	
+ 
+name:	wyg 
+description:	globalvariables comment
+pattern:
+/**
+* @全局变量功能    **全局变量
+* @复位状态
+* @注意事项
+*/
+
+
+name:	wystep 
+description:	step comment
+pattern:
+/*step1:*/
+
+
+name:	wys 
+description:	struct commment
+pattern:
+/**
+* @结构体功能  **结构体
+*/
+typedef struct
+{
+
+}xx_TypeDef;
+
+name:	wyc 
+description:	variables comment
+pattern:
+/**/
+
+name:	wye 
+description:	enum comment
+pattern:
+/**
+* @枚举功能  
+*/
+typedef enum
+{
+	
+}xx_TypeDef;
