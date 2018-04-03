@@ -1,4 +1,5 @@
 atmel studio 路径：VAssistX -> inser VA snippet -> edit VA snippet -> 左上角 new VA snippet（ctrl +N）
+                或者   VAssistX -> visual assist option -> suggestions -> edit VA snippets
 sw4stm32路径： 右上角quick access 输入template回车 -> create a new template
 _____________________________________________________________________________________________________
 
