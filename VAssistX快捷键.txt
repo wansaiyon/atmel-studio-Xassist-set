@@ -1,8 +1,9 @@
-
+atmel studio 路径：VAssistX -> inser VA snippet -> edit VA snippet -> 左上角 new VA snippet（ctrl +N）
+sw4stm32路径： 右上角quick access 输入template回车 -> create a new template
 _____________________________________________________________________________________________________
 
 
-说明：globalvariables comment
+Tittle说明：globalvariables comment
 快捷键：wyg
 
 /**
