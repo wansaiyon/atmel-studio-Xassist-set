@@ -293,10 +293,10 @@ Document method
 
 
 /***************************************************************************************************************************/
-以下为sw4stm32设置
+以下为sw4stm32设置,参考自http://www.cnblogs.com/duboway/archive/2013/04/11/Eclipse.html
 
-/*****************************************（1）源文件**********************************************************************************/
-位置：windows->preferences -> c/c++ -> code style -> code template ->comment ->file
+/*****************************************（1）文件(Files)注释标签************************************************************/
+位置：windows->preferences -> c/c++ -> code style -> code template ->comments ->file
 
 替换前：
 /*
@@ -358,3 +358,72 @@ Document method
 
 /*****************************************End of ${file}*****************************************/
 
+
+/*****************************************（2）头文件注释标签**************************************************/
+位置：windows->preferences -> c/c++ -> code style -> code template ->comments ->files ->c header file
+
+替换前：
+${filecomment}
+#ifndef ${include_guard_symbol}
+#define ${include_guard_symbol}
+
+${includes}
+
+${declarations}
+
+#endif /* ${include_guard_symbol} */
+替换后：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*****************************************（2）类型(Types)注释标签**************************************************/
+位置：windows->preferences -> c/c++ -> code style -> code template ->comments ->types
+
+替换前：
+/*
+ *
+ */
+替换后：
+/**
+
+ * @ClassName: ${type_name}
+
+ * @Description: ${todo}
+
+ * @author: ${user}
+
+ * @date: ${date} ${time}
+
+ * ${tags}
+
+ */
+ 
+ /*****************************************（3）字段(Fields)注释标签************************************************************/
+位置：windows->preferences -> c/c++ -> code style -> code template ->comments ->types
+
+替换前：
+/*
+ *
+ */
+替换后：
+
+
+ /*****************************************（4）methods注释模板************************************************************/
+位置：windows->preferences -> c/c++ -> code style -> code template ->comments ->types
+
+替换前：
+/*
+ *
+ */
+替换后：
