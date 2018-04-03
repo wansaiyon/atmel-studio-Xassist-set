@@ -58,7 +58,7 @@ ________________________________________________________________________________
 快捷键：wyhead
 /*
 ********************************************************************************
-  *Copyright (C), $YEAR$, FuGuang All Rights Reserved
+  *Copyright (C), $YEAR$, CunXin_ All Rights Reserved
   *文 件 名: $FILE_BASE$.$FILE_EXT$
   *说    明: 
   *版    本: V000B00D00
@@ -115,7 +115,7 @@ ________________________________________________________________________________
 快捷键：wysource
 /*
 ********************************************************************************
-  *Copyright (C), $YEAR$, FuGuang All Rights Reserved
+  *Copyright (C), $YEAR$, CunXin_ All Rights Reserved
   *文 件 名: $FILE_BASE$.$FILE_EXT$
   *说    明: 
   *版    本: V000B00D00
@@ -166,7 +166,7 @@ ________________________________________________________________________________
 快捷键：wysourcemain
 /*
 ********************************************************************************
-  *Copyright (C), $YEAR$, FuGuang All Rights Reserved
+  *Copyright (C), $YEAR$, CunXin_ All Rights Reserved
   *文 件 名: $FILE_BASE$.$FILE_EXT$
   *说    明: 
   *版    本: V000B00D00
@@ -213,7 +213,7 @@ int main(void)
 快捷键：wyheadinc
 /*
 ********************************************************************************
-  *Copyright (C), $YEAR$, FuGuang All Rights Reserved
+  *Copyright (C), $YEAR$, CunXin_ All Rights Reserved
   *文 件 名: $FILE_BASE$.$FILE_EXT$
   *说    明: 
   *版    本: V000B00D00
@@ -308,7 +308,7 @@ Document method
 替换后：
 /*
 ********************************************************************************
-  *Copyright (C), ${year}, FuGuang All Rights Reserved
+  *Copyright (C), ${year}, CunXin_ All Rights Reserved
   *文 件 名: ${file}
   *说    明: 
   *版    本: V000B00D00
