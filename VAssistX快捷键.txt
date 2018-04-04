@@ -12,10 +12,10 @@ Tittle说明：globalvariables comment
 快捷键：wyg
 
 /**
-* @全局变量功能    **全局变量
-* @复位状态
-* @注意事项
-*/
+ * @全局变量功能    **全局变量
+ * @复位状态
+ * @注意事项
+ */
 
 _____________________________________________________________________________________________________
 
@@ -30,12 +30,11 @@ ________________________________________________________________________________
 说明：struct commment
 快捷键：wys
 /**
-* @结构体功能  **结构体
-*/
-typedef struct
-{
+ * @结构体功能  **结构体
+ */
+typedef struct {
 
-}xx_TypeDef;
+} xx_TypeDef;
 
 
 _____________________________________________________________________________________________________
@@ -51,12 +50,11 @@ ________________________________________________________________________________
 说明：enum comment
 快捷键：wye
 /**
-* @枚举功能  
-*/
-typedef enum
-{
+ * @枚举功能  
+ */
+typedef enum {
 	
-}xx_TypeDef;
+} xx_TypeDef;
 
 _____________________________________________________________________________________________________
 
@@ -470,10 +468,10 @@ name:	wyg
 description:	globalvariables comment
 pattern:
 /**
-* @全局变量功能    **全局变量
-* @复位状态
-* @注意事项
-*/
+ * @全局变量功能    **全局变量
+ * @复位状态
+ * @注意事项
+ */
 
 
 name:	wystep 
@@ -486,12 +484,11 @@ name:	wys
 description:	struct commment
 pattern:
 /**
-* @结构体功能  **结构体
-*/
-typedef struct
-{
+ * @结构体功能  **结构体
+ */
+typedef struct {
 
-}xx_TypeDef;
+} xx_TypeDef;
 
 name:	wyc 
 description:	variables comment
@@ -502,9 +499,8 @@ name:	wye
 description:	enum comment
 pattern:
 /**
-* @枚举功能  
-*/
-typedef enum
-{
+ * @枚举功能  
+ */
+typedef enum {
 	
-}xx_TypeDef;
+} xx_TypeDef;
