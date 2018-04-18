@@ -71,10 +71,10 @@ PUTCHAR_PROTOTYPE
 
 }
 
-第二步：将syscall.c放入SW4STM32文件夹下（与startup_stm32f407xx.s同根目录）；
+第二步：将syscall.c放入SW4STM32文件夹下（与startup_stm32f407xx.s同根目录，另外还要放在Application -> SW4STM32 目前下）；
 
 第三步：修改项目属性Properties -> C/C++ Build -> Settings -> MCU GCC Linker -> Miscellaneous -> Linker flags后面增加-u _printf_float标志，
-
+以支持浮点数的输出
 修改前：
 Linker flags:-specs=nosys.specs -specs=nano.specs -u _p
 
