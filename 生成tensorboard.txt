@@ -1,11 +1,14 @@
- #写文件到当前路径的logs文件夹下,命令行输入：tensorboard --logdir=D:\Develop\TensorFlow\logs
- writer = tf.summary.FileWriter('logs/',sess.graph)
-
 叠加生成tensorboard步骤
 
 1.删除原来logs目录下文件
 2.shift enter重新运行程序
 3.连按两次或者1次ctrl+c停止命令行，按上方向键重新进入命令行，
+
+	代码中写文件到当前路径的logs文件夹：
+ 		writer = tf.summary.FileWriter('logs/',sess.graph)
+	命令行：
+		tensorboard --logdir=D:\Develop\TensorFlow\logs
+
 4.由于链接地址一般不变，直接刷新浏览器即可
 
 
