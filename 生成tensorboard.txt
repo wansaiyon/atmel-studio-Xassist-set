@@ -1,14 +1,17 @@
-��������tensorboard����
+ #写文件到当前路径的logs文件夹下,命令行输入：tensorboard --logdir=D:\Develop\TensorFlow\logs
+ writer = tf.summary.FileWriter('logs/',sess.graph)
 
-1.ɾ��ԭ��logsĿ¼���ļ�
-2.shift enter�������г���
-3.�������λ���1��ctrl+cֹͣ�����У����Ϸ�������½��������У�
-4.�������ӵ�ַһ�㲻�䣬ֱ��ˢ�����������
+叠加生成tensorboard步骤
+
+1.删除原来logs目录下文件
+2.shift enter重新运行程序
+3.连按两次或者1次ctrl+c停止命令行，按上方向键重新进入命令行，
+4.由于链接地址一般不变，直接刷新浏览器即可
 
 
-��������tensorboard����
+重新生成tensorboard步骤
 
-1.ɾ��ԭ��logsĿ¼���ļ�
+1.删除原来logs目录下文件
 2.kernel-> restart & Run all
-3.�������λ���1��ctrl+cֹͣ�����У����Ϸ�������½��������У�
-4.�������ӵ�ַһ�㲻�䣬ֱ��ˢ�����������
+3.连按两次或者1次ctrl+c停止命令行，按上方向键重新进入命令行，
+4.由于链接地址一般不变，直接刷新浏览器即可
